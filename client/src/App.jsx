@@ -1,13 +1,24 @@
 import React from "react";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Login from "./pages/Login.jsx";
 import Navbar from "./components/navbar.jsx";
+import Notfound from "./pages/404notfound.jsx";
+import Dashboard from "./pages/dashboard.jsx";
 
 const App = () => {
   return (
     <>
       <div className="container ">
         <Navbar></Navbar>
-        <Login></Login>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login></Login>}></Route>
+            <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+            <Route path="*" element={<Notfound></Notfound>}></Route>
+          </Routes>
+        </BrowserRouter>
       </div>
     </>
   );

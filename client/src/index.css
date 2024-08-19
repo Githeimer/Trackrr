@@ -7,10 +7,15 @@
   
 
   --bg-color: #060606;
-  --text-color:#239c51;
+  --text-color:#16ae50;
   --brand-color:#707070;
   --light-color:#ffffff;
   --nav-color:#0e0e0e;
+}
+/* Add this to your global CSS file */
+::selection {
+color: var(--light-color) ; /* Background color */
+ background-color: var(--text-color); /* Text color */
 }
 
 .container
