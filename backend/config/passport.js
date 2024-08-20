@@ -27,9 +27,8 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       // Save or find user in the database
-      User.findOrCreate({ googleId: profile.id }, (err, user) => {
-        return done(err, user);
-      });
+
+      return done(null, user);
     }
   )
 );
