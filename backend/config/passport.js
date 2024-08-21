@@ -5,6 +5,8 @@ import { Strategy as GithubStrategy } from "passport-github";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as TwitterStrategy } from "passport-twitter";
 
+import User from "../model/Trackrr_User.js";
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -23,12 +25,14 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_SECRET_ID,
-      callbackURL: "/auth/google/callback",
+      callbackURL: process.env.BACKEND_URL + "/auth/google/callback",
     },
-    (accessToken, refreshToken, profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
       // Save or find user in the database
-
-      return done(null, user);
+      try {
+        // let user= await User.
+      } catch (error) {}
+      return true;
     }
   )
 );
