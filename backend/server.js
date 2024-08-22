@@ -18,10 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 mongoDBconnection();
 
 const corsOptions = {
-  origin: process.env.FRONTEND_URL, // Allow requests from the frontend URL
-  credentials: true, // Allow cookies to be sent
+  origin: "http://localhost:5173",
+  credentials: true,
 };
-
 app.use(cors(corsOptions));
 //express ko session middleware
 //Creation and storage of session data (user authenication or preferences manage garna use aauxa)

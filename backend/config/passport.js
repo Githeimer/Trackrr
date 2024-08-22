@@ -1,4 +1,3 @@
-import { access } from "fs";
 import passport from "passport";
 
 import { Strategy as GithubStrategy } from "passport-github";
@@ -15,8 +14,13 @@ passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser((user, done) => {
-  done(null, user);
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(err, null);
+  }
 });
 
 //Google strategy
@@ -28,11 +32,24 @@ passport.use(
       callbackURL: process.env.BACKEND_URL + "/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
-      // Save or find user in the database
       try {
-        // let user= await User.
+        let user = await User.findOne({ googleId: profile.id });
+
+        if (user) {
+          return done(null, user);
+        } else {
+          user = new User({
+            googleId: profile.Id,
+            displayName: profile.displayName,
+            email: profile.email,
+            profilePhoto: profile.photos[0].value,
+          });
+          await user.save();
+          return done(null, user);
+        }
       } catch (error) {}
-      return true;
+      console.error(err);
+      return done(err, null);
     }
   )
 );

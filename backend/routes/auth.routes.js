@@ -1,13 +1,15 @@
 import { Router as router } from "express";
 import passport from "../config/passport.js";
 
+import isAuthenticated from "../middleware/checkAuth.js";
+
 const Router = router();
 
 Router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
-// console.log(process.env.FRONTEND_URL + "/");
+
 Router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
@@ -18,20 +20,26 @@ Router.get(
   }
 );
 
-Router.get("/dashboard", (req, res) => {
+Router.get("/dashboard", isAuthenticated, (req, res) => {
+  res.send(`Hello, ${req.user.displayName}!`);
+});
+
+Router.get("/auth/check", (req, res) => {
   if (req.isAuthenticated()) {
-    res.send(`Hello, ${req.user.displayName}!`);
+    res.json({ isAuthenticated: true });
   } else {
-    res.redirect("/login");
+    res.json({ isAuthenticated: false });
   }
 });
 
 Router.get("/logout", (req, res) => {
   req.logout((err) => {
     if (err) {
-      return next(err);
+      // Handle logout errors
+      return res.status(500).json({ error: "Logout failed" });
     }
-    res.redirect(process.env.FRONTEND_URL + "/");
+    // Send a success response
+    res.status(200).json({ message: "Logged out successfully" });
   });
 });
 
