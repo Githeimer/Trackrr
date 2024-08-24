@@ -5,7 +5,8 @@ const Login = () => {
   // const newURL = `${Backend_URL}/auth/google`; //used for debug purpose
 
   const handleGoogleLogin = () => {
-    window.location.href = `${Backend_URL}/auth/google`;
+    window.location.href = Backend_URL + "/auth/google";
+    //oauth backend url
   };
   return (
     <div>

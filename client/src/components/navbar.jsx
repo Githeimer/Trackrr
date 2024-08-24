@@ -22,6 +22,7 @@ const Navbar = () => {
           className=" h-7 cursor-pointer"
           alt="img"
         />
+
         <img src="./login-avatar.png" className=" h-7" alt="img" />
       </div>
     </div>

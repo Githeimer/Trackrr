@@ -1,17 +1,12 @@
 import passport from "passport";
-
-import { Strategy as GithubStrategy } from "passport-github";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import { Strategy as TwitterStrategy } from "passport-twitter";
-
 import User from "../model/Trackrr_User.js";
-
 import dotenv from "dotenv";
 dotenv.config();
 
-//how user info is stored in the session
+// How user info is stored in the session
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
@@ -19,11 +14,11 @@ passport.deserializeUser(async (id, done) => {
     const user = await User.findById(id);
     done(null, user);
   } catch (error) {
-    done(err, null);
+    done(error, null);
   }
 });
 
-//Google strategy
+// Google strategy
 passport.use(
   new GoogleStrategy(
     {
@@ -33,23 +28,27 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        let user = await User.findOne({ googleId: profile.id });
+        let user = await User.findOne({ email: profile.emails[0].value });
 
         if (user) {
+          console.log("Old user detected");
           return done(null, user);
         } else {
           user = new User({
-            googleId: profile.Id,
+            googleId: profile.id,
             displayName: profile.displayName,
-            email: profile.email,
+            email: profile.emails[0].value,
             profilePhoto: profile.photos[0].value,
           });
           await user.save();
+          console.log("New user saved");
+          console.log(user);
           return done(null, user);
         }
-      } catch (error) {}
-      console.error(err);
-      return done(err, null);
+      } catch (error) {
+        console.error("Error in Google Strategy:", error);
+        return done(error, null);
+      }
     }
   )
 );

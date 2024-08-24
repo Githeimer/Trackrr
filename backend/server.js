@@ -19,7 +19,7 @@ mongoDBconnection();
 
 const corsOptions = {
   origin: "http://localhost:5173",
-  credentials: true,
+  credentials: true, // this allows the cookies to be sent when set true
 };
 app.use(cors(corsOptions));
 //express ko session middleware
@@ -29,6 +29,9 @@ app.use(
     secret: SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, //1 day
+    },
   })
 );
 
@@ -38,10 +41,6 @@ app.use(passport.session());
 
 // ROUTES
 app.use(authRoutes);
-
-app.get("/", (req, res) => {
-  res.send("welcome to Trackrr backend");
-});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

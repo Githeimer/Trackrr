@@ -21,7 +21,14 @@ Router.get(
 );
 
 Router.get("/dashboard", isAuthenticated, (req, res) => {
-  res.send(`Hello, ${req.user.displayName}!`);
+  if (req.isAuthenticated()) {
+    res.json({
+      isAuthenticated: true,
+      user: req.user,
+    });
+  } else {
+    res.status(401).json({ isAuthenticated: false });
+  }
 });
 
 Router.get("/auth/check", (req, res) => {
@@ -32,14 +39,23 @@ Router.get("/auth/check", (req, res) => {
   }
 });
 
+Router.get("/login", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.redirect(process.env.FRONTEND_URL + "/dashboard");
+  } else {
+    res.send("Login Page");
+  }
+});
+
 Router.get("/logout", (req, res) => {
   req.logout((err) => {
     if (err) {
-      // Handle logout errors
       return res.status(500).json({ error: "Logout failed" });
     }
-    // Send a success response
-    res.status(200).json({ message: "Logged out successfully" });
+    res.clearCookie("connect.sid");
+    return res
+      .status(200)
+      .json({ success: true, message: "Logged out successfully" });
   });
 });
 
