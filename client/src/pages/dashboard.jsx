@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Progess from "../components/progess";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -72,6 +73,7 @@ const Dashboard = () => {
       <button onClick={handleLogout} className="text-white ">
         Logout
       </button>
+      <Progess></Progess>
     </>
   );
 };
