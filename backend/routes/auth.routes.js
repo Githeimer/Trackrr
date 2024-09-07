@@ -53,6 +53,7 @@ Router.get("/logout", (req, res) => {
       return res.status(500).json({ error: "Logout failed" });
     }
     res.clearCookie("connect.sid");
+    console.log("User Session Cleared");
     return res
       .status(200)
       .json({ success: true, message: "Logged out successfully" });

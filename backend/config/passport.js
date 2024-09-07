@@ -42,7 +42,6 @@ passport.use(
           });
           await user.save();
           console.log("New user saved");
-          console.log(user);
           return done(null, user);
         }
       } catch (error) {
