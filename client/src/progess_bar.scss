@@ -1,0 +1,46 @@
+$cell_height:15px;
+$cell_width:15px;
+$cell_margin:1px;
+
+$bg-color: #060606;
+$text-color: #16ae50;
+$brand-color: #707070;
+$light-color: #ffffff;
+$nav-color: #0e0e0e;
+
+
+
+
+.timeline{
+    &-body{
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        gap:10px
+    }
+    &-weeks{
+        display: flex;
+        flex-direction: column;
+        gap:0px;
+        line-height: 17px;
+        font-size: 15px;
+    }
+
+&-cells{
+    display:flex;
+    flex-direction: column;
+    flex-wrap:wrap;
+    height: #{($cell_height+2)*7};
+}
+&-cell{
+    color:white;
+    height:$cell_height;
+    width: $cell_width;
+    border:1px solid transparent;
+    border-radius: 3px;
+    margin:$cell_margin;
+    background-color: $brand-color;
+}
+
+
+}

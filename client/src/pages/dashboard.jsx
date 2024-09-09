@@ -67,10 +67,13 @@ const Dashboard = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-white">User Dashboard</h1>
+      <h1 className="text-3xl text-white center">User Dashboard</h1>
       <h1 className="text-3xl text-white">Hello {username}</h1>
 
-      <button onClick={handleLogout} className="text-white ">
+      <button
+        onClick={handleLogout}
+        className="text-white bg-[var(--text-color)] w-[80px] p-2 border-gray-100 border-[1px] rounded-[6px] self-center my-2"
+      >
         Logout
       </button>
       <Progess></Progess>

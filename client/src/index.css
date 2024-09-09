@@ -11,9 +11,7 @@
   --brand-color:#707070;
   --light-color:#ffffff;
   --nav-color:#0e0e0e;
-  --square-size: 15px;
-  --square-gap: 5px;
-  --week-width: calc(var(--square-size) + var(--square-gap));
+
 }
 /* Add this to your global CSS file */
 ::selection {
@@ -27,6 +25,8 @@ color: var(--light-color) ; /* Background color */
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 body{
@@ -41,65 +41,3 @@ body{
   width: 25px;
 }
 
-.months { grid-area: months; }
-.days { grid-area: days; }
-.squares { grid-area: squares; }
-
-.graph {
-  display: inline-grid;
-  grid-template-areas: "empty months"
-                       "days squares";
-}
-
-.graph {
-  grid-template-areas: "empty months" "days squares";
-}
-.graph {
-  grid-gap: 10px;
-  grid-template-columns: auto 1fr;
-}
-
-.days {
-  display: grid;
-  grid-template-rows: repeat(7, var(--square-size));
-  grid-gap: var(--square-gap);
-  
-}
-
-.months {
-  display: grid;
-  grid-template-columns: repeat(12, calc(var(--week-width) * 4));
-  
-}
-
-.months {
-  display: grid;
-  grid-template-columns: calc(var(--week-width) * 4) /* Jan */
-						 calc(var(--week-width) * 4) /* Feb */
-						 calc(var(--week-width) * 4) /* Mar */
-						 calc(var(--week-width) * 5) /* Apr */
-						 calc(var(--week-width) * 4) /* May */
-						 calc(var(--week-width) * 4) /* Jun */
-						 calc(var(--week-width) * 5) /* Jul */
-						 calc(var(--week-width) * 4) /* Aug */
-						 calc(var(--week-width) * 4) /* Sep */
-						 calc(var(--week-width) * 5) /* Oct */
-						 calc(var(--week-width) * 4) /* Nov */
-						 calc(var(--week-width) * 5) /* Dec */;
-             
-}
-
-.days,
-.squares {
-  display: grid;
-  grid-gap: var(--square-gap);
-  grid-template-rows: repeat(7, var(--square-size));
- 
-}
-
-.squares {
-  grid-auto-flow: column;
-  grid-auto-columns: var(--square-size);
-  border: 1px soid white;
-
-}

@@ -1,37 +1,69 @@
 import React from "react";
 
 const Progess = () => {
+  //
+  // for debug purpose only
+  const handleCell = (e) => {
+    console.log("clicked");
+    e.target.style.background = "green";
+  };
+
+  const days = Number(365);
+  const months = 12;
+
+  //actual functional code
+  function Cell() {
+    return (
+      <>
+        <div className="timeline-cell" onClick={handleCell}></div>
+      </>
+    );
+  }
+
+  function Weeks({ index }) {
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    return (
+      <>
+        <div className="timeline-weeks-week text-[var(--brand-color)]">
+          {daysOfWeek[index]}
+        </div>
+      </>
+    );
+  }
+
+  function Months() {
+    let month = Array.from(new Array(12));
+  }
+
+  function TimeLine() {
+    let cells = Array.from(new Array(days));
+    let weeks = Array.from(new Array(7));
+
+    return (
+      <>
+        <div className="timeline">
+          <div className="timeline-months"></div>
+          <div className="timeline-body">
+            <div className="timeline-weeks">
+              {weeks.map((_, index) => {
+                return <Weeks key={index} index={index}></Weeks>;
+              })}
+            </div>
+            <div className="timeline-cells">
+              {cells.map((_, index) => {
+                return <Cell key={index}></Cell>;
+              })}
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
-      <div className="border-2 border-slate-100">
-        <div class="grid">
-          <ul class="months">
-            <li>Jan</li>
-            <li>Feb</li>
-            <li>Mar</li>
-            <li>Apr</li>
-            <li>May</li>
-            <li>Jun</li>
-            <li>Jul</li>
-            <li>Aug</li>
-            <li>Sep</li>
-            <li>Oct</li>
-            <li>Nov</li>
-            <li>Dec</li>
-          </ul>
-          <ul class="days">
-            <li></li>
-            <li>Sun</li>
-            <li>Mon</li>
-            <li>Tue</li>
-            <li>Wed</li>
-            <li>Thu</li>
-            <li>Fri</li>
-            <li>Sat</li>
-          </ul>
-          <ul class="squares"></ul>
-        </div>
-      </div>
+      <TimeLine></TimeLine>
     </>
   );
 };

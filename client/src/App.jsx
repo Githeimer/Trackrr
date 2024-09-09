@@ -1,11 +1,12 @@
 import React from "react";
-
+import "./progess_bar.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login.jsx";
 import Navbar from "./components/navbar.jsx";
 import Notfound from "./pages/404notfound.jsx";
 import Dashboard from "./pages/dashboard.jsx";
+import Landing from "./pages/Landing.jsx";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login></Login>}></Route>
+            <Route path="/landing" element={<Landing></Landing>}></Route>
             <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
             <Route path="*" element={<Notfound></Notfound>}></Route>
           </Routes>
