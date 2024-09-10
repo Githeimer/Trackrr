@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
+    "github-calendar": "^2.3.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-github-calender": "^1.1.0",
     "react-router-dom": "^6.26.1",
     "sass": "^1.78.0",
     "tw-elements": "^2.0.0"

@@ -1,46 +1,108 @@
-$cell_height:15px;
-$cell_width:15px;
+$cell_height:11px;
+$cell_width:11px;
 $cell_margin:1px;
 
 $bg-color: #060606;
 $text-color: #16ae50;
-$brand-color: #707070;
+$brand-color: #2f2d2d;
 $light-color: #ffffff;
 $nav-color: #0e0e0e;
+
+$cell-color:#272626;
+$timeline-wrap:rgb(19, 18, 18);
+$timeline-contain:$nav-color;
 
 
 
 
 .timeline{
+    width: fit-content;
+    padding: 10px;
+    border: 1px solid $brand-color;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    background-color:$timeline-contain;
+
+    &-wrap{
+        background-color:$timeline-wrap;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    &-container{
+      
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
     &-body{
+       
         display:flex;
         flex-direction: row;
-        justify-content: center;
         gap:10px
+    }
+    &-title{
+        display:flex;
+        flex-direction: row;
+       justify-content: space-between;
+       padding-left: 10px;
+       padding-right: 15px;
+       
+
+        &-icon{
+            height: 26px;
+            width: 26px;
+            cursor: pointer;
+        }
+    }
+    &-month{
+        display: flex;
+        flex-direction: column;
+       
+    }
+    &-months{
+        display:flex;
+        flex-direction: row;
+        gap:17px;
+    }
+    &-weeks-container{
+        display: flex;
+        flex-direction: column;
+        gap:0px;
+    }
+    &-blank{
+        visibility: hidden;
     }
     &-weeks{
         display: flex;
         flex-direction: column;
-        gap:0px;
-        line-height: 17px;
-        font-size: 15px;
+        
+        height: #{($cell_height+2)*7};
+    }
+    &-week{
+        font-size:12px;
+        height:11px;
+        margin: 1px;
     }
 
-&-cells{
-    display:flex;
-    flex-direction: column;
-    flex-wrap:wrap;
-    height: #{($cell_height+2)*7};
-}
-&-cell{
-    color:white;
-    height:$cell_height;
-    width: $cell_width;
-    border:1px solid transparent;
-    border-radius: 3px;
-    margin:$cell_margin;
-    background-color: $brand-color;
-}
+    &-cells{
+        display:flex;
+        flex-direction: column;
+        flex-wrap:wrap;
+        height: #{($cell_height+2)*7};
+    }
+    &-cell{
+      
+        height:$cell_height;
+        width: $cell_width;
+        border:1px solid transparent;
+        border-radius: 3px;
+        margin:$cell_margin;
+        background-color:$cell-color;
+    }
 
 
 }

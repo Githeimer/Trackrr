@@ -21,7 +21,7 @@ color: var(--light-color) ; /* Background color */
 
 .container
 {
-  max-width: 1155px;
+  max-width: 1255px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
