@@ -4,13 +4,29 @@ const Heatmap = ({ preference, name }) => {
   const months = Array.from(new Array(12)); // 12 months
   const weeks = Array.from(new Array(7)); // 7 days in a week
 
-  const handleCell = (e) => {
-    console.log("clicked");
+  
 
-    e.target.style.background = preference;
-  };
+  const Cells = ({ days ,value,year,intensity}) => {
+    const handleCell = (e) => {
+      console.log("clicked");
+     let intensityIndex=0;
+      const intensityMap=["transparent","#98FB98","#0BDA51","#7CFC00"];
+      if(intensity>0 && intensity<=2)
+      {
+        intensityIndex=1;
+      }
+      else if(intensity>2 && intensity<=3)
+      {
+        intensityIndex=2;
+      }
+      else
+      {
+        intensityIndex=3;
+      }
+      e.target.style.background=intensityMap[intensityIndex];
 
-  const Cells = ({ days }) => {
+     
+    };
     return <div className="timeline-cell" onClick={handleCell}></div>;
   };
 
@@ -18,9 +34,11 @@ const Heatmap = ({ preference, name }) => {
     return <div className="timeline-cell bg-transparent"></div>;
   };
 
-  const Month = ({ index }) => {
-    const daysInMonth = new Date(2024, index + 1, 0).getDate(); // Number of days in the month
-    const startOfMonth = new Date(2024, index, 1).getDay(); // Day of the week the month starts on
+  const Month = ({ month_index }) => {
+    const currentYear= new Date().getFullYear();
+    
+    const daysInMonth = new Date(currentYear, month_index + 1, 0).getDate(); // Number of days in the month
+    const startOfMonth = new Date(currentYear, month_index, 1).getDay(); // Day of the week the month starts on
 
     // Calculate extra cells
     const extraCells = Array.from(new Array(startOfMonth));
@@ -42,7 +60,7 @@ const Heatmap = ({ preference, name }) => {
       "Dec",
     ];
 
-    console.log(MonthsName[index]);
+   
 
     return (
       <div className="timeline-cells">
@@ -52,7 +70,7 @@ const Heatmap = ({ preference, name }) => {
         ))}
         {/* Render actual days */}
         {days.map((_, index) => (
-          <Cells key={`day-${index}`} days={index} />
+          <Cells key={`day-${index}`} days={index} value={MonthsName[month_index]} year={currentYear} intensity={4} />
         ))}
       </div>
     );
@@ -93,9 +111,9 @@ const Heatmap = ({ preference, name }) => {
     return (
       <div className="timeline-months">
         {months.map((_, index) => (
-          <div className="timeline-month" key={index}>
+          <div className="timeline-month">
             <h1>{MonthsName[index]}</h1>
-            <Month index={index} />
+            <Month month_index={index} key={index} />
           </div>
         ))}
       </div>
