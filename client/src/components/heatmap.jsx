@@ -111,9 +111,9 @@ const Heatmap = ({ preference, name }) => {
     return (
       <div className="timeline-months">
         {months.map((_, index) => (
-          <div className="timeline-month">
+          <div className="timeline-month" key={index}>
             <h1>{MonthsName[index]}</h1>
-            <Month month_index={index} key={index} />
+            <Month month_index={index}  />
           </div>
         ))}
       </div>
