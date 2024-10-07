@@ -12,6 +12,12 @@ $cell-color: #272626;
 $timeline-wrap: rgb(19, 18, 18);
 $timeline-contain: $nav-color;
 
+body{
+    background-color: var(--bg-color);
+  font-family: 'San Francisco', Helvetica, Arial, san-serif;
+  color: white;
+
+}
 
 
 
@@ -23,7 +29,8 @@ $timeline-contain: $nav-color;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
-    gap: 15px;
+   justify-content: center;
+    gap: 25px;
     background-color: $timeline-contain;
     overflow-x: auto;
     /* Allows horizontal scrolling */
@@ -35,6 +42,7 @@ $timeline-contain: $nav-color;
         padding: 10px;
         border-radius: 10px;
         cursor: pointer;
+
     }
 
     &-container {
@@ -103,6 +111,7 @@ $timeline-contain: $nav-color;
         flex-direction: column;
         flex-wrap: wrap;
         height: #{($cell_height+2)*7};
+        width:70px;
     }
 
     &-cell {
@@ -112,5 +121,12 @@ $timeline-contain: $nav-color;
         border-radius: 3px;
         margin: $cell_margin;
         background-color: $cell-color;
+    }
+}
+
+.task{
+    &-container{
+        background-color: $brand-color;
+        padding: 10px;
     }
 }

@@ -1,33 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Heatmap = ({ preference, name }) => {
   const months = Array.from(new Array(12)); // 12 months
   const weeks = Array.from(new Array(7)); // 7 days in a week
 
-  
-
-  const Cells = ({ days ,value,year,intensity}) => {
+  const Cells = ({ days, value, year, intensity, cellId }) => {
     const handleCell = (e) => {
-      console.log("clicked");
-     let intensityIndex=0;
-      const intensityMap=["transparent","#98FB98","#0BDA51","#7CFC00"];
-      if(intensity>0 && intensity<=2)
-      {
-        intensityIndex=1;
-      }
-      else if(intensity>2 && intensity<=3)
-      {
-        intensityIndex=2;
-      }
-      else
-      {
-        intensityIndex=3;
-      }
-      e.target.style.background=intensityMap[intensityIndex];
+      let intensityIndex;
+      console.log("Clicked:", cellId);
+      const intensityMap = ["transparent", "#98FB98", "#0BDA51", "#7CFC00"];
 
-     
+      if (intensity > 0 && intensity <= 2) {
+        intensityIndex = 1;
+      } else if (intensity > 2 && intensity <= 3) {
+        intensityIndex = 2;
+      } else {
+        intensityIndex = 3;
+      }
+      e.target.style.background = intensityMap[intensityIndex];
     };
-    return <div className="timeline-cell" onClick={handleCell}></div>;
+
+    return (
+      <div className="timeline-cell" id={cellId} onClick={handleCell}></div>
+    );
   };
 
   const ExtraCells = () => {
@@ -35,8 +30,8 @@ const Heatmap = ({ preference, name }) => {
   };
 
   const Month = ({ month_index }) => {
-    const currentYear= new Date().getFullYear();
-    
+    const currentYear = new Date().getFullYear();
+
     const daysInMonth = new Date(currentYear, month_index + 1, 0).getDate(); // Number of days in the month
     const startOfMonth = new Date(currentYear, month_index, 1).getDay(); // Day of the week the month starts on
 
@@ -60,8 +55,6 @@ const Heatmap = ({ preference, name }) => {
       "Dec",
     ];
 
-   
-
     return (
       <div className="timeline-cells">
         {/* Render extra cells */}
@@ -69,9 +62,22 @@ const Heatmap = ({ preference, name }) => {
           <ExtraCells key={`extra-${index}`} />
         ))}
         {/* Render actual days */}
-        {days.map((_, index) => (
-          <Cells key={`day-${index}`} days={index} value={MonthsName[month_index]} year={currentYear} intensity={4} />
-        ))}
+        {days.map((_, index) => {
+          const cellId = `${name}-${currentYear}-${MonthsName[month_index]}-${
+            index + 1
+          }`;
+
+          return (
+            <Cells
+              key={`day-${index}`}
+              days={index}
+              value={MonthsName[month_index]}
+              year={currentYear}
+              intensity={3}
+              cellId={cellId} // Pass the unique ID to the cell
+            />
+          );
+        })}
       </div>
     );
   };
@@ -113,7 +119,7 @@ const Heatmap = ({ preference, name }) => {
         {months.map((_, index) => (
           <div className="timeline-month" key={index}>
             <h1>{MonthsName[index]}</h1>
-            <Month month_index={index}  />
+            <Month month_index={index} />
           </div>
         ))}
       </div>
@@ -121,7 +127,7 @@ const Heatmap = ({ preference, name }) => {
   };
 
   return (
-    <div className="timeline-wrap" draggable>
+    <div className="timeline-wrap container" draggable>
       <div className="timeline-title">
         <h1 className="text-white text-2xl self-start">{name} Tracker</h1>
         <img
